@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <title>Marinaattori</title>
+  </head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ff5" />
+  <style>
+    body {
+      background-color: #333;
+      margin: 40px 4%;
+    }
+    .tahdet {
+      font-size: 40px;
+      line-height: 20px;
+      position: relative;
+      top: 5px;
+    }
+    .tausta {
+      background: #ff5;
+      color: #222;
+      padding: 16px;
+    }
+    .pohja {
+      font-weight: 900;
+      font-family: sans-serif;
+      background: #222;
+      color: #ff5;
+      padding: 20px 0;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .approx {
+      position: relative;
+      top: 6px;
+    }
+    .ot {
+      font-weight: 900;
+      font-family: sans-serif;
+      font-style: italic;
+      font-size: 50px;
+      text-align: center;
+      letter-spacing: -4px;
+      line-height: 30px;
+      position: relative;
+      top: -6px;
+      left: -6px;
+    }
+    .otsikko {
+      color: #f20;
+    }
+    .palkki {
+      background: #f20;
+    }
+    #main {
+      padding: 20px 0;
+      font-weight: 900;
+      font-family: sans-serif;
+      font-size: 40px;
+      line-height: 40px;
+      letter-spacing: 0;
+      text-align: center;
+      width: 100%;
+      overflow: hidden;
+      min-height: 400px;
+    }
+    #main::first-letter {
+      text-transform: capitalize;
+    }
+
+    @media (min-width: 600px) {
+      #main {
+        font-size: 70px;
+        line-height: 60px;
+      }
+      .otsikko {
+        line-height: 35px;
+        font-size: 70px;
+      }
+      .pohja {
+        font-size: 40px;
+        line-height: 35px;
+      }
+      .tahdet {
+        font-size: 40px;
+        line-height: 50px;
+      }
+    }
+  </style>
+  <script>
+    const vali = ' ';
+    const piste = '.';
+    const viiva = ' \u2014 '
+    function fromUnknown(u) {
+      if (typeof u === 'string') {
+        return u
+      }
+      if (typeof u === 'function') {
+        return u()
+      }
+      if (Array.isArray(u)) {
+        return fromUnknown(u[Math.floor(Math.random()*u.length)])
+      }
+      throw new Error('unexpected item: '.concat(String(u)))
+    }
+    function lause(...items) {
+      const perus = items.map(fromUnknown).filter((x) => x).join(vali)
+      if (perus.endsWith(' "')) {
+        return perus.slice(0,-2).concat('"')
+      }
+      return perus
+    }
+    function lauseet(...items) {
+      return items.filter((x) => x).join(viiva)
+    }
+
+    const esine = [
+      'henkilöautoa',
+      'veriappelsiinia',
+      'ruukkukasvia',
+      'duffelitakkia',
+      'undulaattia',
+      'tandem polkupyörää',
+      'vuoristokaurista',
+      'kahvakuulaa',
+      'portviiniä',
+      'työpöytää',
+      'design-konseptia',
+      'täytekakkua',
+      'pinaattisalaattia',
+      'kahvinkeitintä',
+      'kokojyvä bagelia',
+      'krossipyörää',
+      'kokovartalopeiliä',
+      'serpentiiniä',
+      'sohvakalustoa',
+      'hiilihapotuslaitetta',
+      'päiväpeitettä',
+      'oskiloskooppia',
+      'hiukkaskiihdytintä',
+      'hiirimattoa',
+      'suklaasydäntä',
+      'kasvishampurilaista',
+    ]
+
+    const minne = [
+      'Kesärantaan',
+      'kotiin',
+      'Pikkuparlamenttiin',
+      'lomamatkalle',
+      'Helsingin asuuntoonsa',
+      'Tampereen teknilliseen yliopistoon',
+      String(),
+      String(),
+    ]
+
+    const miten = [
+      'nopeasti',
+      'hitaasti',
+      'ammattitaitoisesti',
+      'tunnollisesti',
+      String(),
+      String(),
+      String(),
+      String(),
+    ]
+
+    const ostamaansa = [
+      'ostamaansa',
+      'hukkaamaansa',
+      'vuokraamaansa',
+      'menettämäänsä',
+      'selättämäänsä',
+      'piilottamaansa',
+      'tilaamaansa',
+      'toivomaansa',
+    ]
+    const ostamassa = [
+      'ostamassa',
+      'hukkaamaassa',
+      'vuokraamassa',
+      'menettämässä',
+      'kruunaamassa',
+    ]
+
+    const tanssimassa = [
+      'tanssimassa',
+      'pelaamassa tennistä',
+      'uimassa',
+      'kokeilemassa onneaan',
+      'syömässä',
+      'juomassa',
+      'yskimässä',
+      'hengittämässä',
+      'joogaamassa',
+      'puhumassa',
+    ]
+
+    const nahtiin = [
+      'nähtiin',
+      'bongattiin',
+      'kuvattiin',
+      'havaittiin',
+    ]
+
+    function pahoittelee() {
+      return lause('pahoittelee', miten, minne, ostamaansa, esine)
+    }
+    function nahtiin2() {
+      return lause([
+        () => lause(nahtiin, ostamassa, esine, minne),
+        () => lause(nahtiin, tanssimassa, miten),
+      ])
+    }
+
+    const titteli = [
+      () => 'pääministeri',
+      () => 'Suomen pääministeri',
+      () => String()
+    ]
+    const sanna = [
+      () => 'Sanna',
+      () => String(),
+    ]
+    const marin = 'Marin'
+    const nimi = () => lause(titteli, sanna, marin)
+
+    const aihe = [
+      pahoittelee,
+      nahtiin2,
+    ]
+
+    const todennakoiselta = [
+      'todennäköiseltä',
+      'oleelliselta',
+    ]
+
+    const vaikuttanut = [
+      'vaikuttanut',
+      'tuntunut',
+    ]
+    const tapoihin = [
+      'tapoihin',
+      'toimintatapoihin',
+    ]
+
+    const ihan = [
+      'ihan',
+      'melko',
+      'suhteellisen',
+      'aika',
+      String(),
+    ]
+
+    const normaalia = [
+      'normaalia',
+      'tavallista',
+      'tyypillistä',
+    ]
+
+    const ennen = [
+      'ennen',
+      'yleensä',
+      String(),
+    ]
+
+    const suomessa = [
+      'Suomessa',
+      'Länsimaissa',
+      'Pohjoismaissa',
+      'Euroopan Unionissa',
+      'Schengen-alueella',
+      String(),
+      String(),
+    ]
+
+    const yksityisasia = [
+      'ykstyisasia',
+      'yleinen menettely',
+      'tavallinen toimintatapa'
+    ]
+
+    const huuto = [
+      'Katso kuvat!',
+      'Mistä tässäon kyse?',
+      'Arvoitus ratkeaa!',
+      lause('"Ei', vaikuttanut, todennakoiselta,  '"'),
+      lause('"Ei ole kuulunut', tapoihin, '"'),
+      lause('"Tämä on minusta', ihan, normaalia, '"'),
+      lause('"Tällaista ei', suomessa, 'ole', ennen, 'tapahtunut"'),
+      lause('"Tämä on ollut', suomessa, ennen, yksityisasia, '"'),
+      String(),
+      String(),
+      String(),
+      String(),
+      String(),
+      String(),
+      String(),
+      String(),
+    ]
+
+    function init() {
+      const elem = document.getElementById('main')
+      elem.innerHTML = lauseet(lause(nimi, aihe), lause(huuto))
+    }
+    window.addEventListener('DOMContentLoaded', () => init())
+  </script>
+  <body>
+    <div class="tausta">
+      <div class="palkki">&nbsp;</div>
+      <div class="ot otsikko">marin<span class="approx">&thickapprox;</span>uutiset</div>
+      <div class="palkki">&nbsp;</div>
+      <div id="main"> </div>
+      <div class="pohja">
+           <div class=".ot">marin&thickapprox;uutiset</div>
+            -julkaisun sisältämä tuuba on fiktiivistä
+           <div class="tahdet">***</div>
+           Keskittykää elämään omaa elämäänne!
+
+      </div>
+    </div>
+  </body>
+</html>
+
